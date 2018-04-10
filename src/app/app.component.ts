@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AlgoritmoGeneticoService } from '../app/services/algoritmo-genetico.service';
+import { Individuo } from './models/individuo';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  public populacao : Array<Individuo>;
+
+  constructor(private algoritmoGenericoService: AlgoritmoGeneticoService) {
+    this.gerarNovaPopulacao();
+  }
+
+  public gerarNovaPopulacao() : void {
+    this.algoritmoGenericoService.criaPopulacao();
+    this.algoritmoGenericoService.calculaFitness();
+    this.populacao = this.algoritmoGenericoService.getPopulacao();
+  }
+
 }
